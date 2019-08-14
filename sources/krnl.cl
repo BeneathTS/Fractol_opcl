@@ -24,30 +24,38 @@ char fract_id, int iter, double ms_re, double ms_im)
 	x = get_x(id);
 	y = id / WIDTH;
 	i = -1;
+	c_re = (x - WIDTH / 2) / (0.6 * zoom * WIDTH) + x_off;
+	c_im = (y - HEIGHT / 2) / (zoom * HEIGHT) + y_off;
+	re[NEW] = c_re;
+	im[NEW] = c_im;
 	if (fract_id == MANDEL)
 	{
-		c_re = (x - WIDTH / 2) / (0.6 * zoom * WIDTH) + x_off;
-		c_im = (y - HEIGHT / 2) / (zoom * HEIGHT) + y_off;
-		re[NEW] = c_re;
-		im[NEW] = c_im;
-		while (re[NEW] * re[NEW] + im[NEW] * im[NEW] < 4 && ++i < iter)
+		while (ABS(re[NEW]) + ABS(im[NEW]) < 4 && ++i < iter)
 		{
 			re[OLD] = re[NEW];
 			im[OLD] = im[NEW];
-			re[NEW] = re[OLD] * re[OLD] - im[OLD] * im[OLD] + c_re;
+			re[NEW] = ABS(re[OLD]) - ABS(im[OLD]) + c_re;
 			im[NEW] = 2 * re[OLD] * im[OLD] + c_im;
 		}
 	}
 	else if (fract_id == JUL)
 	{
-		re[NEW] = (x - WIDTH / 2) / (0.6 * zoom * WIDTH) + x_off;
-		im[NEW] = (y - HEIGHT / 2) / (zoom * HEIGHT) + y_off;
-		while (re[NEW] * re[NEW] + im[NEW] * im[NEW] < 4 && ++i < iter)
+		while (ABS(re[NEW]) + ABS(im[NEW]) < 4 && ++i < iter)
 		{
 			re[OLD] = re[NEW];
 			im[OLD] = im[NEW];
-			re[NEW] = re[OLD] * re[OLD] - im[OLD] * im[OLD] + ms_re;
+			re[NEW] = ABS(re[OLD]) - ABS(im[OLD]) + ms_re;
 			im[NEW] = 2 * re[OLD] * im[OLD] + ms_im;
+		}
+	}
+	else if (fract_id == BRN_SP)
+	{
+		while (ABS(re[NEW]) + ABS(im[NEW]) < 4 && ++i < iter)
+		{
+			re[OLD] = re[NEW];
+			im[OLD] = im[NEW];
+			im[NEW] = ABS(2 * re[OLD] * im[OLD])+ c_im;
+			re[NEW] = ABS(ABS(re[OLD]) - ABS(im[OLD]) + c_re);
 		}
 	}
 	if(i < iter)
