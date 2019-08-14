@@ -42,6 +42,9 @@ typedef struct			s_cam
 	double 				x_off;
 	double 				y_off;
 	int					iter;
+	double				ms_re;
+	double				ms_im;
+	char				pause;
 }						t_cam;
 
 typedef struct			s_env
@@ -67,6 +70,7 @@ void					init_opencl(t_opcl *opcl);
 void					key_hooks(t_env *env);
 void					zoom(int button, int x, int y, t_env *env);
 void					move_cam(int key, t_env *env);
+void					change_c_julia(t_env *env, int x, int y);
 void					draw(t_env *env);
 
 /*					Errors								*/

@@ -10,6 +10,8 @@ static void set_args_to_kernel(t_env *env)
 	err |= clSetKernelArg(env->opcl->kernel, 3, sizeof(double), &env->cam->y_off);
 	err |= clSetKernelArg(env->opcl->kernel, 4, sizeof(char), &env->fract_id);
 	err |= clSetKernelArg(env->opcl->kernel, 5, sizeof(int), &env->cam->iter);
+	err |= clSetKernelArg(env->opcl->kernel, 6, sizeof(double), &env->cam->ms_re);
+	err |= clSetKernelArg(env->opcl->kernel, 7, sizeof(double), &env->cam->ms_im);
 	if (CL_SUCCESS != err)
 		terminate(EXIT, CL);
 }

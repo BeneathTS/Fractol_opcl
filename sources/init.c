@@ -10,6 +10,7 @@ t_cam *cam_init()
 	cam->zoom = 0.5;
 	cam->x_off = 0;
 	cam->y_off = 0;
+	cam->pause = OFF;
 	return (cam);
 }
 

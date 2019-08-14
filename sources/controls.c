@@ -25,3 +25,13 @@ void move_cam(int key, t_env *env)
 		env->cam->y_off += 0.03 / env->cam->zoom;
 	draw(env);
 }
+
+void change_c_julia(t_env *env, int x, int y)
+{
+	if (x <= WIDTH && x >= 0 && y <= HEIGHT && y >= 0)
+	{
+		env->cam->ms_re = (x - WIDTH / 2) * 0.002;
+		env->cam->ms_im = (y - HEIGHT / 2) * 0.002;
+	}
+	draw(env);
+}
