@@ -30,32 +30,32 @@ char fract_id, int iter, double ms_re, double ms_im)
 	im[NEW] = c_im;
 	if (fract_id == MANDEL)
 	{
-		while (ABS(re[NEW]) + ABS(im[NEW]) < 4 && ++i < iter)
+		while (POW(re[NEW]) + POW(im[NEW]) < 4 && ++i < iter)
 		{
 			re[OLD] = re[NEW];
 			im[OLD] = im[NEW];
-			re[NEW] = ABS(re[OLD]) - ABS(im[OLD]) + c_re;
+			re[NEW] = POW(re[OLD]) - POW(im[OLD]) + c_re;
 			im[NEW] = 2 * re[OLD] * im[OLD] + c_im;
 		}
 	}
 	else if (fract_id == JUL)
 	{
-		while (ABS(re[NEW]) + ABS(im[NEW]) < 4 && ++i < iter)
+		while (POW(re[NEW]) + POW(im[NEW]) < 4 && ++i < iter)
 		{
 			re[OLD] = re[NEW];
 			im[OLD] = im[NEW];
-			re[NEW] = ABS(re[OLD]) - ABS(im[OLD]) + ms_re;
+			re[NEW] = POW(re[OLD]) - POW(im[OLD]) + ms_re;
 			im[NEW] = 2 * re[OLD] * im[OLD] + ms_im;
 		}
 	}
 	else if (fract_id == BRN_SP)
 	{
-		while (ABS(re[NEW]) + ABS(im[NEW]) < 4 && ++i < iter)
+		while (POW(re[NEW]) + POW(im[NEW]) < 4 && ++i < iter)
 		{
 			re[OLD] = re[NEW];
 			im[OLD] = im[NEW];
-			im[NEW] = ABS(2 * re[OLD] * im[OLD])+ c_im;
-			re[NEW] = ABS(ABS(re[OLD]) - ABS(im[OLD]) + c_re);
+			im[NEW] = 2.0 * fabs(re[OLD] * im[OLD])+ c_im;
+			re[NEW] = POW(re[OLD]) - POW(im[OLD]) + c_re;
 		}
 	}
 	if(i < iter)

@@ -8,7 +8,6 @@ void zoom(int button, t_env *env)
 		env->cam->zoom /= 1.1;
 	if (env->cam->zoom < 0.005)
 		env->cam->zoom = 0.005;
-	printf("%f\n", env->cam->zoom);
 	draw(env);
 }
 

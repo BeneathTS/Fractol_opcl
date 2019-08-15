@@ -11,6 +11,6 @@
 #define WIDTH 1280
 #define HEIGHT 720
 
-#define ABS(x) (x * x)
+#define POW(x) (x * x)
 
 #endif
