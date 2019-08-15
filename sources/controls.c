@@ -1,15 +1,14 @@
 #include "fractol.h"
 
-void zoom(int button, int x, int y, t_env *env)
+void zoom(int button, t_env *env)
 {
-	(void)x;
-	(void)y;
-	if (button == MS_SCRL_UP)
-		env->cam->zoom += 0.03;
-	if (button == MS_SCRL_DWN)
-		env->cam->zoom -= 0.03;
+	if (button == MS_SCRL_UP || button == KB_NUM_PLUS)
+		env->cam->zoom *= 1.1;
+	if (button == MS_SCRL_DWN || button == KB_NUM_MIN)
+		env->cam->zoom /= 1.1;
 	if (env->cam->zoom < 0.005)
 		env->cam->zoom = 0.005;
+	printf("%f\n", env->cam->zoom);
 	draw(env);
 }
 

@@ -23,6 +23,10 @@
 
 #define KERNEL_NAME "sources/krnl.cl"
 
+#define R 1
+#define G 2
+#define B 3
+
 typedef struct			s_opcl
 {
 	cl_device_id		id;
@@ -68,9 +72,10 @@ void					init_opencl(t_opcl *opcl);
 
 /* 					Controls							*/
 void					key_hooks(t_env *env);
-void					zoom(int button, int x, int y, t_env *env);
+void					zoom(int button, t_env *env);
 void					move_cam(int key, t_env *env);
 void					change_c_julia(t_env *env, int x, int y);
+void					change_color(t_env *env);
 void					draw(t_env *env);
 
 /*					Errors								*/

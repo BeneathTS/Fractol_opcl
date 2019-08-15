@@ -2,7 +2,7 @@
 
 static int get_x(size_t id)
 {
-	while (id > WIDTH)
+	while (id >= WIDTH)
 		id -= WIDTH;
 	return ((int)id);
 }
@@ -59,7 +59,7 @@ char fract_id, int iter, double ms_re, double ms_im)
 		}
 	}
 	if(i < iter)
-		((__global int*)out)[id] = 0xFFFFFF; 
+		((__global int*)out)[id] = (i * 8) % 255; 
 	else
 	 	((__global int*)out)[id]  = 0x0;
 }
