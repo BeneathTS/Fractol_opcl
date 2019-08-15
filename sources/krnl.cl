@@ -38,6 +38,26 @@ char fract_id, int iter, double ms_re, double ms_im)
 			im[NEW] = 2 * re[OLD] * im[OLD] + c_im;
 		}
 	}
+	else if (fract_id == TRICORN)
+	{
+		while (POW(re[NEW]) + POW(im[NEW]) < 4 && ++i < iter)
+		{
+			re[OLD] = re[NEW];
+			im[OLD] = im[NEW];
+			re[NEW] = POW(re[OLD]) - POW(im[OLD]) + c_re;
+			im[NEW] = -2 * re[OLD] * im[OLD] + c_im;
+		}
+	}
+	else if (fract_id == CEL_MANDEL)
+	{
+		while (POW(re[NEW]) + POW(im[NEW]) < 4 && ++i < iter)
+		{
+			re[OLD] = re[NEW];
+			im[OLD] = im[NEW];
+			re[NEW] = fabs(POW(re[OLD]) - POW(im[OLD])) + c_re;
+			im[NEW] = 2 * re[OLD] * im[OLD] + c_im;
+		}
+	}
 	else if (fract_id == JUL)
 	{
 		while (POW(re[NEW]) + POW(im[NEW]) < 4 && ++i < iter)
@@ -56,6 +76,16 @@ char fract_id, int iter, double ms_re, double ms_im)
 			im[OLD] = im[NEW];
 			im[NEW] = 2.0 * fabs(re[OLD] * im[OLD])+ c_im;
 			re[NEW] = POW(re[OLD]) - POW(im[OLD]) + c_re;
+		}
+	}
+	else if (fract_id == BRN_SP_C)
+	{
+		while (POW(re[NEW]) + POW(im[NEW]) < 4 && ++i < iter)
+		{
+			re[OLD] = re[NEW];
+			im[OLD] = im[NEW];
+			im[NEW] = 2.0 * fabs(re[OLD] * im[OLD])+ ms_im;
+			re[NEW] = POW(re[OLD]) - POW(im[OLD]) + ms_re;
 		}
 	}
 	if(i < iter)
