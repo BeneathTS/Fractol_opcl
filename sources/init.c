@@ -6,11 +6,13 @@ t_cam *cam_init()
 
 	if (!(cam = (t_cam*)malloc(sizeof(t_cam))))
 		return (NULL);
-	cam->iter = 100;
-	cam->zoom = 0.2;
+	cam->iter = 40;
+	cam->zoom = 150;
 	cam->x_off = 0;
 	cam->y_off = 0;
 	cam->pause = OFF;
+	cam->zoom_x = WIDTH / 2;
+	cam->zoom_y = HEIGHT / 2;
 	return (cam);
 }
 

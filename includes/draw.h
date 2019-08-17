@@ -2,11 +2,16 @@
 #define DRAW_H
 
 #define MANDEL 1
-#define JUL 2
-#define BRN_SP 3
-#define BRN_SP_C 4
-#define TRICORN 5
-#define CEL_MANDEL 6
+#define MULTI_MANDEL_3 2
+#define MULTI_MANDEL_4 3
+#define MULTI_MANDEL_5 4
+#define MULTI_MANDEL_6 5
+#define TRICORN 6
+#define CEL_MANDEL 7
+#define JUL 8
+#define BRN_SP 9
+#define BRN_SP_C 10
+
 
 #define OLD 0
 #define NEW 1

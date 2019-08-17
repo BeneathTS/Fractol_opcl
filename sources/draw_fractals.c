@@ -12,6 +12,8 @@ static void set_args_to_kernel(t_env *env)
 	err |= clSetKernelArg(env->opcl->kernel, 5, sizeof(int), &env->cam->iter);
 	err |= clSetKernelArg(env->opcl->kernel, 6, sizeof(double), &env->cam->ms_re);
 	err |= clSetKernelArg(env->opcl->kernel, 7, sizeof(double), &env->cam->ms_im);
+	err |= clSetKernelArg(env->opcl->kernel, 8, sizeof(double), &env->cam->zoom_x);
+	err |= clSetKernelArg(env->opcl->kernel, 9, sizeof(double), &env->cam->zoom_y);
 	if (CL_SUCCESS != err)
 		terminate(EXIT, CL);
 }

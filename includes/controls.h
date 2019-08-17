@@ -7,6 +7,7 @@
 #define KB_STD_ESC 53
 #define KB_STD_SPACE 49 
 #define KB_KEY_C 8
+#define KB_KEY_R 15
 
 #define KB_ARR_UP 126
 #define KB_ARR_DWN 125
@@ -15,6 +16,9 @@
 
 #define KB_NUM_PLUS 69
 #define KB_NUM_MIN 78
+
+#define KB_KEY_ARR_RGHT 47
+#define KB_KEY_ARR_LFT 43
 
 #define MS_SCRL_UP 4
 #define MS_SCRL_DWN 5

@@ -9,8 +9,8 @@ int key_controls(int key, t_env *env)
 		move_cam(key, env);
 	if (key == KB_STD_SPACE)
 		env->cam->pause = (env->cam->pause == ON ? OFF : ON);
-	if (key == KB_NUM_MIN || key == KB_NUM_PLUS)
-		zoom(key, env);
+	 if (key == KB_KEY_ARR_LFT || key == KB_KEY_ARR_RGHT || key == KB_KEY_R)
+	 	change_multi_mandel(key, env);
 	return (0);
 }
 
@@ -19,7 +19,7 @@ int mouse_controls_press(int button, int x, int y, t_env *env)
 	(void)x;
 	(void)y;
 	if (button == MS_SCRL_UP || button == MS_SCRL_DWN)
-		zoom(button, env);
+		zoom(button, x, y, env);
 	return (0);
 }
 

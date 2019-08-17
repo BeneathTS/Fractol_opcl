@@ -8,7 +8,7 @@ static int get_x(size_t id)
 }
 
 void kernel draw_fractals(__global char *out, double zoom, double x_off, double y_off, 
-char fract_id, int iter, double ms_re, double ms_im)
+char fract_id, int iter, double ms_re, double ms_im, double zoom_x, double zoom_y)
 {
 	double re[2];
 	double im[2];
@@ -24,8 +24,8 @@ char fract_id, int iter, double ms_re, double ms_im)
 	x = get_x(id);
 	y = id / WIDTH;
 	i = -1;
-	c_re = (x - WIDTH / 2) / (0.6 * zoom * WIDTH) + x_off;
-	c_im = (y - HEIGHT / 2) / (zoom * HEIGHT) + y_off;
+	c_re = (x - zoom_x) / (zoom * WIDTH / HEIGHT) + x_off;
+	c_im = (y - zoom_y) / (zoom * WIDTH / HEIGHT) + y_off;
 	re[NEW] = c_re;
 	im[NEW] = c_im;
 	if (fract_id == MANDEL)
@@ -36,6 +36,59 @@ char fract_id, int iter, double ms_re, double ms_im)
 			im[OLD] = im[NEW];
 			re[NEW] = POW(re[OLD]) - POW(im[OLD]) + c_re;
 			im[NEW] = 2 * re[OLD] * im[OLD] + c_im;
+		}
+	}
+	else if (fract_id == MULTI_MANDEL_3)
+	{
+		while (POW(re[NEW]) + POW(im[NEW]) < 4 && ++i < iter)
+		{
+			re[OLD] = re[NEW];
+			im[OLD] = im[NEW];
+			re[NEW] = re[OLD] * re[OLD] * re[OLD] - 3 * re[OLD] * im[OLD] * im[OLD] + c_re;
+			im[NEW] = 3 * re[OLD] * re[OLD] * im[OLD] - im[OLD] * im[OLD] * im[OLD] + c_im;
+		}
+	}
+	else if (fract_id == MULTI_MANDEL_4)
+	{
+		while (POW(re[NEW]) + POW(im[NEW]) < 4 && ++i < iter)
+		{
+			re[OLD] = re[NEW];
+			im[OLD] = im[NEW];
+			re[NEW] = re[OLD] * re[OLD] * re[OLD] * re[OLD] + 
+			im[NEW] * im[OLD] * im[OLD] * im[OLD] - 
+			6 * re[OLD] * re[OLD] * im[OLD] * im[OLD] + c_re;
+			im[NEW] = 4 * re[OLD] * re[OLD] * re[OLD] * im[OLD] - 
+			4 * re[OLD] * im[OLD] * im[OLD] * im[OLD] + c_im;
+		}
+	}
+	else if (fract_id == MULTI_MANDEL_5)
+	{
+		while (POW(re[NEW]) + POW(im[NEW]) < 4 && ++i < iter)
+		{
+			re[OLD] = re[NEW];
+			im[OLD] = im[NEW];
+			re[NEW] = re[OLD] * re[OLD] * re[OLD] * re[OLD] * re[OLD] -
+			10 * re[OLD] * re[OLD] * re[OLD] * im[OLD] * im[OLD] +
+			5 * re[OLD] * im[OLD] * im[OLD] * im[OLD] * im[OLD] + c_re;
+			im[NEW] = 5 * re[OLD] * re[OLD] * re[OLD] * re[OLD] * im[OLD] -
+			10 * re[OLD] * re[OLD] * im[OLD] * im[OLD] * im[OLD] + 
+			im[OLD] * im[OLD] * im[OLD] * im[OLD] *im[OLD] + c_im;
+		}
+	}
+	else if (fract_id == MULTI_MANDEL_6)
+	{
+		while (POW(re[NEW]) + POW(im[NEW]) < 4 && ++i < iter)
+		{
+			re[OLD] = re[NEW];
+			im[OLD] = im[NEW];
+			
+			re[NEW] = re[OLD] * re[OLD] * re[OLD] * re[OLD] * re[OLD] * re[OLD] -
+			im[OLD] * im[OLD] * im[OLD] * im[OLD] * im[OLD] * im[OLD] -
+			15 * re[OLD] * re[OLD] * re[OLD] * re[OLD] * im[OLD] * im[OLD] +
+			15 * re[OLD] * re[OLD] * im[OLD] * im[OLD] * im[OLD] * im[OLD] + c_re;
+			im[NEW] = 6 * re[OLD] * re[OLD] * re[OLD] * re[OLD] * re[OLD] * im[OLD] +
+			6 * re[OLD] * im[OLD] * im[OLD] * im[OLD] * im[OLD] * im[OLD] - 
+			20 * re[OLD] * re[OLD] * re[OLD] * im[OLD] * im[OLD] * im[OLD] + c_im;
 		}
 	}
 	else if (fract_id == TRICORN)
@@ -89,7 +142,7 @@ char fract_id, int iter, double ms_re, double ms_im)
 		}
 	}
 	if(i < iter)
-		((__global int*)out)[id] = (i * 8) % 255; 
+		((__global int*)out)[id] = (i * 8) % 255; //(i * 8) % 255
 	else
 	 	((__global int*)out)[id]  = 0x0;
 }
