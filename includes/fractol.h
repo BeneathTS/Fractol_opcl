@@ -23,10 +23,6 @@
 
 #define KERNEL_NAME "sources/krnl.cl"
 
-#define R 1
-#define G 2
-#define B 3
-
 typedef struct			s_opcl
 {
 	cl_device_id		id;

@@ -13,21 +13,26 @@ void change_multi_mandel(int key, t_env *env)
 		env->cam->x_off = 0;
 		env->cam->y_off = 0;
 		env->cam->zoom = 150;
+		env->cam->zoom_x = WIDTH / 2;
+		env->cam->zoom_y = HEIGHT / 2;
 	}
 	draw(env);
 }
 
 void zoom(int button, int x, int y, t_env *env)
 {
-	(void)x;
-	(void)y;
-	
+	double temp;
+	temp = env->cam->zoom;
 	if (button == MS_SCRL_UP || button == KB_NUM_PLUS)
 		env->cam->zoom *= 1.1;
 	if (button == MS_SCRL_DWN || button == KB_NUM_MIN)
 		env->cam->zoom /= 1.1;
 	if (env->cam->zoom < 5)
 		env->cam->zoom = 5;
+	env->cam->x_off -= -(x - env->cam->zoom_x) / env->cam->zoom * (double)HEIGHT / WIDTH * 1.1;
+	env->cam->y_off -= -(y - env->cam->zoom_y) / env->cam->zoom * (double)HEIGHT / WIDTH * 1.1;
+	env->cam->zoom_x = x;
+	env->cam->zoom_y = y;
 	draw(env);
 }
 
