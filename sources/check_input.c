@@ -12,6 +12,12 @@ char mandelbrot_check(char **argv)
 		return (MULTI_MANDEL_5);
 	else if (argv[1][1] == 'm' && argv[1][2] == 'm' && argv[1][3] == '6' && !argv[1][4])
 		return (MULTI_MANDEL_6);
+	else if (argv[1][1] == 't' && !argv[1][2])
+		return (TRICORN);
+	else if (argv[1][1] == 'c' && argv[1][2] == 'm' && !argv[1][3])
+		return (CEL_MANDEL);
+	else if (argv[1][1] == 'c' && argv[1][2] == 'm' && argv[1][3] == 'c' && !argv[1][4])
+		return (CEL_MANDEL_C);
 	return (0);
 }
 
@@ -27,10 +33,6 @@ static char check_fract_id(char **argv)
 		return (BRN_SP_C);
 	else if (argv[1][1] == 'b' && argv[1][2] == 's' && !argv[1][3])
 		return (BRN_SP);
-	else if (argv[1][1] == 't' && !argv[1][2])
-		return (TRICORN);
-	else if (argv[1][1] == 'c' && argv[1][2] == 'm' && !argv[1][3])
-		return (CEL_MANDEL);
 	else if (!(temp = mandelbrot_check(argv)))
 		terminate(STD, INPUT_ERROR);
 	return (temp);

@@ -111,6 +111,16 @@ char fract_id, int iter, double ms_re, double ms_im, double zoom_x, double zoom_
 			im[NEW] = 2 * re[OLD] * im[OLD] + c_im;
 		}
 	}
+	else if (fract_id == CEL_MANDEL_C)
+	{
+		while (POW(re[NEW]) + POW(im[NEW]) < 4 && ++i < iter)
+		{
+			re[OLD] = re[NEW];
+			im[OLD] = im[NEW];
+			re[NEW] = fabs(POW(re[OLD]) - POW(im[OLD])) + ms_re;
+			im[NEW] = 2 * re[OLD] * im[OLD] + ms_im;
+		}
+	}
 	else if (fract_id == JUL)
 	{
 		while (POW(re[NEW]) + POW(im[NEW]) < 4 && ++i < iter)

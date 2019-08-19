@@ -4,8 +4,11 @@ void change_multi_mandel(int key, t_env *env)
 {
 	char temp;
 	temp = env->fract_id;
-	if (key == KB_KEY_ARR_RGHT && env->fract_id < MULTI_MANDEL_6)
+	if (key == KB_KEY_ARR_RGHT && env->fract_id < BRN_SP_C)
+	{
 		++env->fract_id;
+		env->cam->pause = OFF;
+	}
 	if (key == KB_KEY_ARR_LFT && MANDEL < env->fract_id)
 		--env->fract_id;
 	if (env->fract_id != temp || key == KB_KEY_R)
