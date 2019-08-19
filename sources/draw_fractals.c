@@ -15,7 +15,7 @@ static void set_args_to_kernel(t_env *env)
 	err |= clSetKernelArg(env->opcl->kernel, 8, sizeof(double), &env->cam->zoom_x);
 	err |= clSetKernelArg(env->opcl->kernel, 9, sizeof(double), &env->cam->zoom_y);
 	if (CL_SUCCESS != err)
-		terminate(EXIT, CL);
+		cl_err_exit(env->opcl, ERR_SET_KERNEL_ARG);
 }
 
 static void set_work_size(t_opcl *opcl)
@@ -26,16 +26,18 @@ static void set_work_size(t_opcl *opcl)
 
 	err = clGetKernelWorkGroupInfo(opcl->kernel, opcl->id, CL_KERNEL_WORK_GROUP_SIZE, sizeof(opcl->local_s), &opcl->local_s, NULL);
 	if (CL_SUCCESS != err)
-		terminate(CL, EXIT);
+		cl_err_exit(opcl, ERR_GET_LOCAL_SIZE);
 }
 
 static void rendering(t_env *env)
 {
-	//cl_int err;
+	cl_int err;
 
 	set_work_size(env->opcl);
 	set_args_to_kernel(env);
-	clEnqueueNDRangeKernel(env->opcl->queue, env->opcl->kernel, 1, NULL, &env->opcl->global_s, &env->opcl->local_s, 0, NULL, NULL);
+	err = clEnqueueNDRangeKernel(env->opcl->queue, env->opcl->kernel, 1, NULL, &env->opcl->global_s, &env->opcl->local_s, 0, NULL, NULL);
+	if (CL_SUCCESS != err)
+		cl_err_exit(env->opcl, ERR_NDRANGE);
 }
 
 void draw(t_env *env)

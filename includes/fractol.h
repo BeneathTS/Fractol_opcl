@@ -82,7 +82,9 @@ void					draw(t_env *env);
 void					std_err(int err_code);
 
 /*					Exit								*/
-int						x_close(void *param);
+int						x_close(t_env *env);
+void					cl_errors(int err_code);
+void					cl_err_exit(t_opcl *opcl, int err_code);
 void					terminate(char flag, int err_code);
 
 #endif

@@ -29,13 +29,12 @@ static void build_program(t_opcl *opcl)
 	{
 		clGetProgramBuildInfo(opcl->program, opcl->id, CL_PROGRAM_BUILD_LOG, 100000, &buf, NULL);
 		ft_putstr(buf);
-		terminate(CL, EXIT);
+		cl_err_exit(opcl, ERR_INIT_PROGRAM);
 	}
 	if (!(opcl->kernel = clCreateKernel(opcl->program, "draw_fractals", &err)))
-		terminate(CL, EXIT);
+		cl_err_exit(opcl, ERR_INIT_KERNEL);
 }
 
-/* Нужно дописать коды ошибок */
 static void check_platform(t_opcl *opcl)
 {
 	cl_uint num_pltfrms;
@@ -45,14 +44,13 @@ static void check_platform(t_opcl *opcl)
 
 	err = clGetPlatformIDs(0, NULL, &num_pltfrms);
 	if (CL_SUCCESS != (err |= clGetPlatformIDs(num_pltfrms, &pltfrm, NULL)))
-		terminate(CL, EXIT);
+		cl_err_exit(opcl, ERR_INIT_DEVICE);
 
 	err = clGetDeviceIDs(pltfrm, CL_DEVICE_TYPE_GPU, 0, NULL, &nd);
 	if (CL_SUCCESS != (err |= clGetDeviceIDs(pltfrm, CL_DEVICE_TYPE_GPU, nd, &opcl->id, NULL)))
-		terminate(CL, EXIT);
+		cl_err_exit(opcl, ERR_INIT_DEVICE);
 }
 
-/* Нужно дописать коды ошибок */
 void init_opencl(t_opcl *opcl)
 {
 	cl_int err;
@@ -60,14 +58,18 @@ void init_opencl(t_opcl *opcl)
 
 	check_platform(opcl);
 	if (!(opcl->context = clCreateContext(NULL, 1, &opcl->id, NULL, NULL, &err)))
-		terminate(CL, EXIT);
+		cl_err_exit(opcl, ERR_INIT_CONTEXT);
 	if (!(opcl->queue = clCreateCommandQueue(opcl->context, opcl->id, 0, &err)))
-		terminate(CL, EXIT);
+		cl_err_exit(opcl, ERR_INIT_COMMAND_QUEUE);
 	opcl->out = clCreateBuffer(opcl->context, CL_MEM_WRITE_ONLY, WIDTH * HEIGHT * 4, NULL, &err);
 	if (CL_SUCCESS != err)
-		terminate(CL, EXIT);
+		cl_err_exit(opcl, ERR_INIT_GLOBAL_BUF);
 	src = load_kernel(KERNEL_NAME);
 	if(!(opcl->program = clCreateProgramWithSource(opcl->context, 1, (const char**)&src, NULL, &err)))
-	 	terminate(CL, EXIT);
+	{
+		free(src);
+		cl_err_exit(opcl, ERR_BUILD_PROGRAM);
+	}
+	free(src);
 	build_program(opcl);
 }
