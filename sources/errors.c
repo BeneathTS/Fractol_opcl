@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   errors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahiroko <ahiroko@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/19 21:58:09 by ahiroko           #+#    #+#             */
+/*   Updated: 2019/08/19 21:58:39 by ahiroko          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-void cl_errors(int err_code)
+void		cl_errors(int err_code)
 {
 	ft_putstr("\033[1;31mError!\033[0m");
 	if (err_code == ERR_INIT_DEVICE)
@@ -19,13 +31,13 @@ void cl_errors(int err_code)
 		ft_putstr("Can't init CL global variable!\n");
 	else if (err_code == ERR_SET_KERNEL_ARG)
 		ft_putstr("Can't set arguments to kernel!\n");
-	else if(err_code == ERR_GET_LOCAL_SIZE)
+	else if (err_code == ERR_GET_LOCAL_SIZE)
 		ft_putstr("Can't get Work Group local size!\n");
-	else if(err_code == ERR_NDRANGE)
+	else if (err_code == ERR_NDRANGE)
 		ft_putstr("Can't launch kernel!\n");
 }
 
-static void usage_err()
+static void	usage_err(void)
 {
 	ft_putstr("\033[1;33mUsage\033[0m: ./fractol \"fractal flag\" \n");
 	ft_putstr("Mandelbrot set:\t\t\t-m\n");
@@ -41,7 +53,7 @@ static void usage_err()
 	ft_putstr("Burning ship(change):\t\t-bsc\n");
 }
 
-void std_err(int err_code)
+void		std_err(int err_code)
 {
 	errno = err_code;
 	if (err_code == INPUT_ERROR)

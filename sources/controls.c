@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   controls.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahiroko <ahiroko@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/19 21:58:53 by ahiroko           #+#    #+#             */
+/*   Updated: 2019/08/19 22:00:05 by ahiroko          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-void change_multi_mandel(int key, t_env *env)
+void	change_multi_mandel(int key, t_env *env)
 {
 	char temp;
+
 	temp = env->fract_id;
 	if (key == KB_KEY_ARR_RGHT && env->fract_id < BRN_SP_C)
 	{
@@ -16,15 +29,16 @@ void change_multi_mandel(int key, t_env *env)
 		env->cam->x_off = 0;
 		env->cam->y_off = 0;
 		env->cam->zoom = 150;
-		env->cam->zoom_x = WIDTH / 2;
-		env->cam->zoom_y = HEIGHT / 2;
+		env->cam->zm_x = WIDTH / 2;
+		env->cam->zm_y = HEIGHT / 2;
 	}
 	draw(env);
 }
 
-void zoom(int button, int x, int y, t_env *env)
+void	zoom(int button, int x, int y, t_env *env)
 {
 	double temp;
+
 	temp = env->cam->zoom;
 	if (button == MS_SCRL_UP || button == KB_NUM_PLUS)
 		env->cam->zoom *= 1.1;
@@ -32,14 +46,16 @@ void zoom(int button, int x, int y, t_env *env)
 		env->cam->zoom /= 1.1;
 	if (env->cam->zoom < 5)
 		env->cam->zoom = 5;
-	env->cam->x_off -= -(x - env->cam->zoom_x) / env->cam->zoom * (double)HEIGHT / WIDTH * 1.1;
-	env->cam->y_off -= -(y - env->cam->zoom_y) / env->cam->zoom * (double)HEIGHT / WIDTH * 1.1;
-	env->cam->zoom_x = x;
-	env->cam->zoom_y = y;
+	env->cam->x_off -= -(x - env->cam->zm_x) / env->cam->zoom *
+	(double)HEIGHT / WIDTH * 1.1;
+	env->cam->y_off -= -(y - env->cam->zm_y) / env->cam->zoom *
+	(double)HEIGHT / WIDTH * 1.1;
+	env->cam->zm_x = x;
+	env->cam->zm_y = y;
 	draw(env);
 }
 
-void move_cam(int key, t_env *env)
+void	move_cam(int key, t_env *env)
 {
 	if (key == KB_ARR_RGHT)
 		env->cam->x_off -= 0.03 * WIDTH / env->cam->zoom;
@@ -52,7 +68,7 @@ void move_cam(int key, t_env *env)
 	draw(env);
 }
 
-void change_c_julia(t_env *env, int x, int y)
+void	change_c_julia(t_env *env, int x, int y)
 {
 	if (x <= WIDTH && x >= 0 && y <= HEIGHT && y >= 0)
 	{

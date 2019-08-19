@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahiroko <ahiroko@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/19 21:48:09 by ahiroko           #+#    #+#             */
+/*   Updated: 2019/08/19 21:52:49 by ahiroko          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-t_cam *cam_init()
+t_cam	*cam_init(void)
 {
 	t_cam *cam;
 
@@ -11,12 +23,12 @@ t_cam *cam_init()
 	cam->x_off = 0;
 	cam->y_off = 0;
 	cam->pause = OFF;
-	cam->zoom_x = WIDTH / 2;
-	cam->zoom_y = HEIGHT / 2;
+	cam->zm_x = WIDTH / 2;
+	cam->zm_y = HEIGHT / 2;
 	return (cam);
 }
 
-t_opcl *opcl_init()
+t_opcl	*opcl_init(void)
 {
 	t_opcl *opcl;
 
@@ -25,7 +37,7 @@ t_opcl *opcl_init()
 	return (opcl);
 }
 
-void init_env(t_env *env)
+void	init_env(t_env *env)
 {
 	if (!(env->mlx = mlx_init()))
 		terminate(STD, ENOMEM);
@@ -37,5 +49,6 @@ void init_env(t_env *env)
 		terminate(STD, ENOMEM);
 	if (!(env->img = mlx_new_image(env->mlx, WIDTH, HEIGHT)))
 		terminate(STD, ENOMEM);
-	env->data_addr = mlx_get_data_addr(env->img, &env->bts_pr_pxl, &env->sz_ln, &env->endian);
+	env->data_addr = mlx_get_data_addr(env->img, &env->bts_pr_pxl,
+	&env->sz_ln, &env->endian);
 }

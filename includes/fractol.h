@@ -1,34 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahiroko <ahiroko@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/19 22:00:26 by ahiroko           #+#    #+#             */
+/*   Updated: 2019/08/19 22:04:10 by ahiroko          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FRACTOL_H
-#define FRACTOL_H
+# define FRACTOL_H
 
-#include <mlx.h>
-#include <math.h>
-#include <stdio.h>
-#include <errno.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
+# include <mlx.h>
+# include <math.h>
+# include <stdio.h>
+# include <errno.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <string.h>
 
-#ifdef __APPLE__
-#include <OpenCL/opencl.h>
-#else
-#include <CL/cl.h>
-#endif
+# ifdef __APPLE__
+#  include <OpenCL/opencl.h>
+# else
+#  include <CL/cl.h>
+# endif
 
-#include "libft.h"
-#include "draw.h"
-#include "errors.h"
-#include "controls.h"
-#include "get_next_line.h"
+# include "libft.h"
+# include "draw.h"
+# include "errors.h"
+# include "controls.h"
+# include "get_next_line.h"
 
-#define KERNEL_NAME "sources/krnl.cl"
+# define KERNEL_NAME "sources/krnl.cl"
 
 typedef struct			s_opcl
 {
 	cl_device_id		id;
 	cl_context			context;
 	cl_command_queue	queue;
-	cl_program 			program;
+	cl_program			program;
 	cl_kernel			kernel;
 	cl_mem				out;
 	size_t				global_s;
@@ -38,15 +50,15 @@ typedef struct			s_opcl
 
 typedef struct			s_cam
 {
-	double 				zoom;
-	double 				x_off;
-	double 				y_off;
+	double				zoom;
+	double				x_off;
+	double				y_off;
 	int					iter;
 	double				ms_re;
 	double				ms_im;
 	char				pause;
-	double				zoom_x;
-	double				zoom_y;
+	double				zm_x;
+	double				zm_y;
 }						t_cam;
 
 typedef struct			s_env
@@ -78,7 +90,7 @@ void					change_multi_mandel(int key, t_env *env);
 void					draw(t_env *env);
 
 /*					Errors								*/
-//void					cl_errors();
+void					cl_errors();
 void					std_err(int err_code);
 
 /*					Exit								*/
