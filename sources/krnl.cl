@@ -152,7 +152,7 @@ char fract_id, int iter, double ms_re, double ms_im, double zoom_x, double zoom_
 		}
 	}
 	if(i < iter)
-		((__global int*)out)[id] = ((i * 8) % 255) << 16 | ((i * 8) % 255); //(i * 8) % 255
+		((__global int*)out)[id] = ((i * 6) % 255) << 16 | ((i * 6) % 255); //(i * 8) % 255
 	else
 	 	((__global int*)out)[id]  = 0x0;
 }
