@@ -6,7 +6,7 @@
 /*   By: ahiroko <ahiroko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 21:50:55 by ahiroko           #+#    #+#             */
-/*   Updated: 2019/08/19 21:52:36 by ahiroko          ###   ########.fr       */
+/*   Updated: 2019/08/20 17:06:29 by ahiroko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	set_args_to_kernel(t_env *env)
 	e |= clSetKernelArg(env->opcl->kernel, 7, sizeof(double), &env->cam->ms_im);
 	e |= clSetKernelArg(env->opcl->kernel, 8, sizeof(double), &env->cam->zm_x);
 	e |= clSetKernelArg(env->opcl->kernel, 9, sizeof(double), &env->cam->zm_y);
+	e |= clSetKernelArg(env->opcl->kernel, 10, sizeof(char), &env->cam->c_id);
 	if (CL_SUCCESS != e)
 		cl_err_exit(env->opcl, ERR_SET_KERNEL_ARG);
 }

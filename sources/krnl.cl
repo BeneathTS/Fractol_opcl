@@ -1,5 +1,28 @@
 #include "draw.h"
 
+int set_color(int i, char c_id)
+{
+	if (c_id == STD_COLOR)
+		return (((i * 6) % 255) << 16 | ((i * 6) % 255));
+	else if (c_id == GREEN)
+		return (((i * 6) % 255) << 8);
+	else if (c_id == BLUE)
+		return (((i * 6) % 255));
+	else if (c_id == RED)
+		return (((i * 6) % 255) << 16);
+	else if (c_id == WHITE)
+		return (((i * 6) % 255) << 16 | ((i * 6) % 255) << 8 | ((i * 6) % 255));
+	else if (c_id == BLACK_N_WHITE)
+	{
+		if (i % 2)
+			return (((i * 6) % 255) << 16 | ((i * 6) % 255) << 8 | ((i * 6) % 255));
+		else 
+			return (0x0);
+	}
+	else if (c_id == DRK_BLUE)
+		return (i > 2 ? 0x36665c / i : 0x153836);
+}
+
 static int get_x(size_t id)
 {
 	while (id >= WIDTH)
@@ -8,7 +31,7 @@ static int get_x(size_t id)
 }
 
 void kernel draw_fractals(__global char *out, double zoom, double x_off, double y_off, 
-char fract_id, int iter, double ms_re, double ms_im, double zoom_x, double zoom_y)
+char fract_id, int iter, double ms_re, double ms_im, double zoom_x, double zoom_y, char c_id)
 {
 	double re[2];
 	double im[2];
@@ -152,7 +175,7 @@ char fract_id, int iter, double ms_re, double ms_im, double zoom_x, double zoom_
 		}
 	}
 	if(i < iter)
-		((__global int*)out)[id] = ((i * 6) % 255) << 16 | ((i * 6) % 255); //(i * 8) % 255
+		((__global int*)out)[id] = set_color(i, c_id); //(i * 8) % 255
 	else
 	 	((__global int*)out)[id]  = 0x0;
 }

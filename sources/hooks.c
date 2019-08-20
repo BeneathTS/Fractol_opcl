@@ -6,7 +6,7 @@
 /*   By: ahiroko <ahiroko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 21:55:02 by ahiroko           #+#    #+#             */
-/*   Updated: 2019/08/19 21:55:58 by ahiroko          ###   ########.fr       */
+/*   Updated: 2019/08/20 18:19:18 by ahiroko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int		key_controls(int key, t_env *env)
 		env->cam->pause = (env->cam->pause == ON ? OFF : ON);
 	if (key == KB_KEY_ARR_LFT || key == KB_KEY_ARR_RGHT || key == KB_KEY_R)
 		change_multi_mandel(key, env);
+	if (key == KB_KEY_C || key == KB_NUM_PLUS || key == KB_NUM_MIN)
+		change_color_scheme_n_iter(key, env);
 	return (0);
 }
 

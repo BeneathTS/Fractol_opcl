@@ -6,7 +6,7 @@
 /*   By: ahiroko <ahiroko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 21:48:09 by ahiroko           #+#    #+#             */
-/*   Updated: 2019/08/19 21:52:49 by ahiroko          ###   ########.fr       */
+/*   Updated: 2019/08/20 18:06:44 by ahiroko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_cam	*cam_init(void)
 	cam->pause = OFF;
 	cam->zm_x = WIDTH / 2;
 	cam->zm_y = HEIGHT / 2;
+	cam->c_id = STD_COLOR;
 	return (cam);
 }
 

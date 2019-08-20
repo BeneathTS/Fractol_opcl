@@ -6,7 +6,7 @@
 /*   By: ahiroko <ahiroko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 22:06:00 by ahiroko           #+#    #+#             */
-/*   Updated: 2019/08/19 22:06:11 by ahiroko          ###   ########.fr       */
+/*   Updated: 2019/08/20 18:11:01 by ahiroko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@
 
 # define WIDTH 1920
 # define HEIGHT 1080
+
+# define STD_COLOR 0
+# define GREEN 1
+# define BLUE 2
+# define RED 3
+# define WHITE 4
+# define BLACK_N_WHITE 5
+# define DRK_BLUE 6
 
 # define POW(x) (x * x)
 

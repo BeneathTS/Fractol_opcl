@@ -6,11 +6,28 @@
 /*   By: ahiroko <ahiroko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 21:58:53 by ahiroko           #+#    #+#             */
-/*   Updated: 2019/08/19 22:00:05 by ahiroko          ###   ########.fr       */
+/*   Updated: 2019/08/20 18:26:55 by ahiroko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	change_color_scheme_n_iter(int key, t_env *env)
+{
+	if (key == KB_KEY_C)
+	{
+		++env->cam->c_id;
+		if (env->cam->c_id > DRK_BLUE)
+			env->cam->c_id = STD_COLOR;
+	}
+	else if (key == KB_NUM_PLUS || key == KB_NUM_MIN)
+	{
+		key == KB_NUM_PLUS ? ++env->cam->iter : --env->cam->iter;
+		if (env->cam->iter < 0)
+			env->cam->iter = 1;
+	}
+	draw(env);
+}
 
 void	change_multi_mandel(int key, t_env *env)
 {
@@ -31,6 +48,7 @@ void	change_multi_mandel(int key, t_env *env)
 		env->cam->zoom = 150;
 		env->cam->zm_x = WIDTH / 2;
 		env->cam->zm_y = HEIGHT / 2;
+		env->cam->iter = 40;
 	}
 	draw(env);
 }

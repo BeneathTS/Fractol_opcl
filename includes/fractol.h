@@ -6,7 +6,7 @@
 /*   By: ahiroko <ahiroko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 22:00:26 by ahiroko           #+#    #+#             */
-/*   Updated: 2019/08/19 22:04:10 by ahiroko          ###   ########.fr       */
+/*   Updated: 2019/08/20 18:16:15 by ahiroko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct			s_cam
 	char				pause;
 	double				zm_x;
 	double				zm_y;
+	char				c_id;
 }						t_cam;
 
 typedef struct			s_env
@@ -87,6 +88,7 @@ void					move_cam(int key, t_env *env);
 void					change_c_julia(t_env *env, int x, int y);
 void					change_color(t_env *env);
 void					change_multi_mandel(int key, t_env *env);
+void					change_color_scheme_n_iter(int key, t_env *env);
 void					draw(t_env *env);
 
 /*					Errors								*/
