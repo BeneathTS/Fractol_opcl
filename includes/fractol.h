@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <string.h>
+# include <sys/types.h>
 
 # ifdef __APPLE__
 #  include <OpenCL/opencl.h>
@@ -34,6 +35,8 @@
 # include "get_next_line.h"
 
 # define KERNEL_NAME "sources/krnl.cl"
+# define FIRST_ARG argv[1]
+# define SEC_ARG argv[2]
 
 typedef struct			s_opcl
 {
@@ -77,7 +80,7 @@ typedef struct			s_env
 }						t_env;
 
 /* 					Data Inicialisation					*/
-char					check_input(int argc, char **argv);
+char					check_input(char *arg);
 void					init_env(t_env *env);
 void					init_opencl(t_opcl *opcl);
 

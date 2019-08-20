@@ -14,7 +14,7 @@
 
 void		cl_errors(int err_code)
 {
-	ft_putstr("\033[1;31mError!\033[0m");
+	ft_putstr("\033[1;31mError:\033[0m ");
 	if (err_code == ERR_INIT_DEVICE)
 		ft_putstr("Can't get CL-Device ID!\n");
 	else if (err_code == ERR_INIT_COMMAND_QUEUE)
@@ -39,7 +39,8 @@ void		cl_errors(int err_code)
 
 static void	usage_err(void)
 {
-	ft_putstr("\033[1;33mUsage\033[0m: ./fractol \"fractal flag\" \n");
+	ft_putstr("\033[1;33mUsage\033[0m: ./fractol [flag1 flag2] \n");
+	ft_putstr("You can use no more than 2 flags!\n");
 	ft_putstr("Mandelbrot set:\t\t\t-m\n");
 	ft_putstr("Multibrot (x2):\t\t\t-mm3\n");
 	ft_putstr("Multibrot (x3):\t\t\t-mm4\n");
@@ -58,6 +59,8 @@ void		std_err(int err_code)
 	errno = err_code;
 	if (err_code == INPUT_ERROR)
 		usage_err();
+	else if(err_code == FORK_ERR)
+		ft_putstr("\033[1;31mError!\033[0m Can't init second porcess!\n");
 	else
 		perror("\033[1;31mError!\033[0m");
 }
