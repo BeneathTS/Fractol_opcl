@@ -6,37 +6,31 @@
 /*   By: ahiroko <ahiroko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 21:54:32 by ahiroko           #+#    #+#             */
-/*   Updated: 2019/08/19 21:54:41 by ahiroko          ###   ########.fr       */
+/*   Updated: 2019/08/21 18:34:34 by ahiroko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	fractol(char *arg, t_env *env)
+static void	help_controls(void)
 {
-	env->fract_id = check_input(arg);
-	init_env(env);
-	init_opencl(env->opcl);
-	draw(env);
-	key_hooks(env);
-	mlx_loop(env->mlx);
+	ft_putstr("\033[1mMove\033[0m: arrows\n");
+	ft_putstr("\033[1mZoom\033[0m: scroll\n");
+	ft_putstr("\033[1mColor\033[0m: \"c\"\n");
+	ft_putstr("\033[1mChange\033[0m: \"<\" / \">\"\n");
+	ft_putstr("\033[1mIter\033[0m: \"+\" / \"-\" on numpad\n");
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_env env;
-	pid_t pid;
 
-	if (argc < 2 || argc > 3)
-		terminate(STD, INPUT_ERROR);
-	if (argc == 3)
-		switch (pid = fork())
-		{
-		case -1:
-			terminate(STD, FORK_ERR);
-		case 0:
-			fractol(SEC_ARG, &env);
-		}
-	fractol(FIRST_ARG, &env);
+	env.fract_id = check_input(argc, argv);
+	init_env(&env);
+	init_opencl(env.opcl);
+	draw(&env);
+	help_controls();
+	key_hooks(&env);
+	mlx_loop(env.mlx);
 	return (0);
 }

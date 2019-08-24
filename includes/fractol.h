@@ -6,7 +6,7 @@
 /*   By: ahiroko <ahiroko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 22:00:26 by ahiroko           #+#    #+#             */
-/*   Updated: 2019/08/20 18:16:15 by ahiroko          ###   ########.fr       */
+/*   Updated: 2019/08/21 17:33:13 by ahiroko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <string.h>
-# include <sys/types.h>
 
 # ifdef __APPLE__
 #  include <OpenCL/opencl.h>
@@ -35,8 +34,6 @@
 # include "get_next_line.h"
 
 # define KERNEL_NAME "sources/krnl.cl"
-# define FIRST_ARG argv[1]
-# define SEC_ARG argv[2]
 
 typedef struct			s_opcl
 {
@@ -79,12 +76,10 @@ typedef struct			s_env
 	t_cam				*cam;
 }						t_env;
 
-/* 					Data Inicialisation					*/
-char					check_input(char *arg);
+char					check_input(int argc, char **argv);
 void					init_env(t_env *env);
 void					init_opencl(t_opcl *opcl);
 
-/* 					Controls							*/
 void					key_hooks(t_env *env);
 void					zoom(int button, int x, int y, t_env *env);
 void					move_cam(int key, t_env *env);
@@ -94,11 +89,9 @@ void					change_multi_mandel(int key, t_env *env);
 void					change_color_scheme_n_iter(int key, t_env *env);
 void					draw(t_env *env);
 
-/*					Errors								*/
 void					cl_errors();
 void					std_err(int err_code);
 
-/*					Exit								*/
 int						x_close(t_env *env);
 void					cl_errors(int err_code);
 void					cl_err_exit(t_opcl *opcl, int err_code);

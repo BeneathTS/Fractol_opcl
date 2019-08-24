@@ -30,6 +30,4 @@
 # define ERR_GET_LOCAL_SIZE 10
 # define ERR_NDRANGE 11
 
-# define FORK_ERR 12
-
 #endif
